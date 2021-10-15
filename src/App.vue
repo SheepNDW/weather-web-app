@@ -1,31 +1,35 @@
 <template>
   <div class="container">
     <!-- weather(left) -->
-    <WeatherSide />
+    <WeatherSide :cityInfo="cityInfo" />
 
     <!-- info(right) -->
     <div class="info-side">
       <div class="today-info-container">
         <div class="today-info">
-          <!-- percent -->
-          <div class="percent clear">
-            <span class="title">降雨率</span>
-            <span class="value">88</span>
+          <!-- MaxT -->
+          <div class="MaxT clear">
+            <span class="title">最高溫</span>
+            <span class="value"
+              >{{ Math.round(cityInfo.weatherDatas[0].max_temp) }}°C</span
+            >
+          </div>
+          <!-- MinT -->
+          <div class="MinT clear">
+            <span class="title">最低溫</span>
+            <span class="value"
+              >{{ Math.round(cityInfo.weatherDatas[0].min_temp) }}°C</span
+            >
           </div>
           <!-- humidity -->
           <div class="humidity clear">
             <span class="title">濕度</span>
-            <span class="value">88</span>
-          </div>
-          <!-- wind -->
-          <div class="wind clear">
-            <span class="title">風速</span>
-            <span class="value">88</span>
+            <span class="value">{{ cityInfo.weatherDatas[0].humidity }}%</span>
           </div>
         </div>
       </div>
 
-      <WeekList />
+      <WeekList :cityInfo="cityInfo" />
 
       <Search />
     </div>
@@ -47,8 +51,54 @@ export default {
   data() {
     return {
       cityInfo: {
-        city: {},
-        weatherDatas: {},
+        city: "Taipei",
+        weatherDatas: [
+          {
+            applicable_date: "2021-10-15",
+            the_temp: 30.630000000000003,
+            weather_state_abbr: "lc",
+            weather_state_name: "Light Cloud",
+            max_temp: 30.73,
+            min_temp: 24.835,
+            humidity: 66,
+          },
+          {
+            applicable_date: "2021-10-15",
+            the_temp: 30.630000000000003,
+            weather_state_abbr: "lc",
+            weather_state_name: "Light Cloud",
+            max_temp: 30.73,
+            min_temp: 24.835,
+            humidity: 66,
+          },
+          {
+            applicable_date: "2021-10-15",
+            the_temp: 30.630000000000003,
+            weather_state_abbr: "lc",
+            weather_state_name: "Light Cloud",
+            max_temp: 30.73,
+            min_temp: 24.835,
+            humidity: 66,
+          },
+          {
+            applicable_date: "2021-10-15",
+            the_temp: 30.630000000000003,
+            weather_state_abbr: "lc",
+            weather_state_name: "Light Cloud",
+            max_temp: 30.73,
+            min_temp: 24.835,
+            humidity: 66,
+          },
+          {
+            applicable_date: "2021-10-15",
+            the_temp: 30.630000000000003,
+            weather_state_abbr: "lc",
+            weather_state_name: "Light Cloud",
+            max_temp: 30.73,
+            min_temp: 24.835,
+            humidity: 66,
+          },
+        ],
       },
     };
   },
@@ -91,7 +141,7 @@ body {
 .container {
   position: relative;
   display: flex;
-  width: 700px;
+  width: 750px;
   height: 435px;
   background-color: $colorContainer;
   border-radius: 25px;
@@ -101,7 +151,7 @@ body {
 
 //--- right part start ---
 .info-side {
-  width: 400px;
+  width: 450px;
   padding-top: 25px;
   margin-right: 10px;
   height: 100%;

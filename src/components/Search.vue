@@ -66,8 +66,8 @@ $colorGradient: linear-gradient(135deg, #72edf1 10%, #5151e6 100%);
     display: block;
     box-sizing: border-box;
     position: absolute;
-    top: 40px;
-    left: calc(50% - 150px);
+    top: 30px;
+    left: calc(50% - 120px);
 
     color: #222831;
     border: none;
@@ -86,8 +86,8 @@ $colorGradient: linear-gradient(135deg, #72edf1 10%, #5151e6 100%);
     cursor: pointer;
     transition: 0.2s;
     position: absolute;
-    bottom: 50px;
-    left: calc(50% - 160px);
+    bottom: 60px;
+    left: calc(50% - 130px);
 
     &:hover {
       transform: scale(1.05);

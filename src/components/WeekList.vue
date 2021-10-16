@@ -4,6 +4,8 @@
       <li
         v-for="(day, index) in cityInfo.weatherDatas.slice(0, 5)"
         :key="index"
+        @click="activate(index)"
+        :class="{ active: active_el == index }"
       >
         <span
           ><img
@@ -23,6 +25,16 @@
 export default {
   name: "WeekList",
   props: ["cityInfo"],
+  data() {
+    return {
+      active_el: 0,
+    };
+  },
+  methods: {
+    activate: function (el) {
+      this.active_el = el;
+    },
+  },
 };
 </script>
 
@@ -64,5 +76,10 @@ export default {
     font-size: 14px;
     font-weight: bold;
   }
+}
+
+.active {
+  background-color: #fff;
+  color: #222831;
 }
 </style>

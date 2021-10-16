@@ -4,7 +4,17 @@
       <li
         v-for="(day, index) in cityInfo.weatherDatas.slice(0, 5)"
         :key="index"
-        @click="activate(index)"
+        @click="
+          activate(index, {
+            weather_state_abbr: day.weather_state_abbr,
+            weather_state_name: day.weather_state_name,
+            applicable_date: day.applicable_date,
+            the_temp: day.the_temp,
+            max_temp: day.max_temp,
+            min_temp: day.min_temp,
+            humidity: day.humidity,
+          })
+        "
         :class="{ active: active_el == index }"
       >
         <span
@@ -31,8 +41,9 @@ export default {
     };
   },
   methods: {
-    activate: function (el) {
+    activate: function (el, dataObj) {
       this.active_el = el;
+      this.$emit("getCurrentActive", dataObj);
     },
   },
 };

@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container" v-show="!cityInfo.isLoading">
       <!-- weather(left) -->
-      <WeatherSide :cityInfo="cityInfo" />
+      <WeatherSide :cityInfo="cityInfo" :currentSelect="currentSelect" />
 
       <!-- info(right) -->
       <div class="info-side">
@@ -12,27 +12,25 @@
             <div class="MaxT clear">
               <span class="title">最高溫</span>
               <span class="value"
-                >{{ Math.round(cityInfo.weatherDatas[0].max_temp) }}°C</span
+                >{{ Math.round(currentSelect.max_temp) }}°C</span
               >
             </div>
             <!-- MinT -->
             <div class="MinT clear">
               <span class="title">最低溫</span>
               <span class="value"
-                >{{ Math.round(cityInfo.weatherDatas[0].min_temp) }}°C</span
+                >{{ Math.round(currentSelect.min_temp) }}°C</span
               >
             </div>
             <!-- humidity -->
             <div class="humidity clear">
               <span class="title">濕度</span>
-              <span class="value"
-                >{{ cityInfo.weatherDatas[0].humidity }}%</span
-              >
+              <span class="value">{{ currentSelect.humidity }}%</span>
             </div>
           </div>
         </div>
 
-        <WeekList :cityInfo="cityInfo" />
+        <WeekList :cityInfo="cityInfo" @getCurrentActive="updateShow" />
 
         <Search />
       </div>
@@ -72,12 +70,14 @@ export default {
         city: "Taipei",
         weatherDatas: [],
       },
+      currentSelect: [],
     };
   },
   created() {
     axios.get(`http://localhost:8080/api/location/2306179/`).then(
       (response) => {
         this.cityInfo.weatherDatas = response.data.consolidated_weather;
+        this.currentSelect = response.data.consolidated_weather[0];
       },
       (error) => {
         console.log(error.message);
@@ -88,6 +88,11 @@ export default {
     this.$bus.$on("updateCityData", (dataObj) => {
       this.cityInfo = { ...this.cityInfo, ...dataObj };
     });
+  },
+  methods: {
+    updateShow(dataObj) {
+      this.currentSelect = dataObj;
+    },
   },
 };
 </script>

@@ -18,30 +18,44 @@ export default {
   },
   methods: {
     searchCity() {
+      this.$bus.$emit("updateCityData", { isLoading: true, errMsg: "" });
       axios
         .get(`http://localhost:8080/api/location/search/?query=${this.keyWord}`)
         .then(
           (response) => {
             console.log("請求成功了");
-            axios
-              .get(
-                `http://localhost:8080/api/location/${response.data[0].woeid}/`
-              )
-              .then(
-                (response2) => {
-                  console.log("請求成功了");
-                  this.$bus.$emit("updateCityData", {
-                    city: response.data[0].title,
-                    weatherDatas: response2.data.consolidated_weather,
-                  });
-                },
-                (error2) => {
-                  console.log("請求失敗", error2.message);
-                }
-              );
+            if (response.data.length) {
+              axios
+                .get(
+                  `http://localhost:8080/api/location/${response.data[0].woeid}/`
+                )
+                .then(
+                  (response2) => {
+                    console.log("請求成功了");
+                    this.$bus.$emit("updateCityData", {
+                      city: response.data[0].title,
+                      weatherDatas: response2.data.consolidated_weather,
+                      isLoading: false,
+                      errMsg: "",
+                    });
+                  },
+                  (error2) => {
+                    console.log("請求失敗", error2.message);
+                    this.$bus.$emit("updateCityData", {
+                      errMsg: error2.message,
+                    });
+                  }
+                );
+            } else {
+              alert("查無此城市, 請重新輸入正確城市名");
+              this.$bus.$emit("updateCityData", { isLoading: false });
+            }
           },
           (error) => {
             console.log("請求失敗", error.message);
+            this.$bus.$emit("updateCityData", {
+              errMsg: error.message,
+            });
           }
         );
     },

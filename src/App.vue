@@ -12,20 +12,26 @@
             <div class="MaxT clear">
               <span class="title">最高溫</span>
               <span class="value"
-                >{{ Math.round(currentSelect.max_temp) }}°C</span
+                >{{
+                  Math.round(cityInfo.weatherDatas[currentSelect].max_temp)
+                }}°C</span
               >
             </div>
             <!-- MinT -->
             <div class="MinT clear">
               <span class="title">最低溫</span>
               <span class="value"
-                >{{ Math.round(currentSelect.min_temp) }}°C</span
+                >{{
+                  Math.round(cityInfo.weatherDatas[currentSelect].min_temp)
+                }}°C</span
               >
             </div>
             <!-- humidity -->
             <div class="humidity clear">
               <span class="title">濕度</span>
-              <span class="value">{{ currentSelect.humidity }}%</span>
+              <span class="value"
+                >{{ cityInfo.weatherDatas[currentSelect].humidity }}%</span
+              >
             </div>
           </div>
         </div>
@@ -70,14 +76,13 @@ export default {
         city: "Taipei",
         weatherDatas: [],
       },
-      currentSelect: [],
+      currentSelect: 0,
     };
   },
   created() {
     axios.get(`http://localhost:8080/api/location/2306179/`).then(
       (response) => {
         this.cityInfo.weatherDatas = response.data.consolidated_weather;
-        this.currentSelect = response.data.consolidated_weather[0];
       },
       (error) => {
         console.log(error.message);
@@ -90,8 +95,9 @@ export default {
     });
   },
   methods: {
-    updateShow(dataObj) {
-      this.currentSelect = dataObj;
+    updateShow(currentSelect) {
+      console.log(currentSelect);
+      this.currentSelect = currentSelect;
     },
   },
 };

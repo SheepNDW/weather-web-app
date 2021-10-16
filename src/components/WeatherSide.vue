@@ -4,7 +4,7 @@
     <div class="date-container">
       <h2 class="day-name">日期</h2>
       <span class="date-day">
-        {{ currentSelect.applicable_date }}
+        {{ cityInfo.weatherDatas[currentSelect].applicable_date }}
       </span>
       <span id="location">
         {{ cityInfo.city }}
@@ -15,12 +15,14 @@
       <!-- icon -->
       <span
         ><img
-          :src="`https://www.metaweather.com/static/img/weather/${currentSelect.weather_state_abbr}.svg`"
+          :src="`https://www.metaweather.com/static/img/weather/${cityInfo.weatherDatas[currentSelect].weather_state_abbr}.svg`"
           alt=""
       /></span>
-      <div class="weather-temp">{{ Math.round(currentSelect.the_temp) }}°C</div>
+      <div class="weather-temp">
+        {{ Math.round(cityInfo.weatherDatas[currentSelect].the_temp) }}°C
+      </div>
       <div class="weather-desc">
-        {{ currentSelect.weather_state_name }}
+        {{ cityInfo.weatherDatas[currentSelect].weather_state_name }}
       </div>
     </div>
   </div>
@@ -29,7 +31,19 @@
 <script>
 export default {
   name: "WeatherSide",
-  props: ["cityInfo", "currentSelect"],
+  // props: ["cityInfo", "currentSelect"],
+  props: {
+    cityInfo: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    currentSelect: {
+      type: Number,
+      default: 0,
+    },
+  },
 };
 </script>
 

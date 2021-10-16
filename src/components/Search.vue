@@ -1,6 +1,6 @@
 <template>
   <div class="location-container">
-    <input type="text" placeholder="City" v-model="keyWord" />
+    <input type="text" placeholder="Please input a city" v-model="keyWord" />
     <button class="location-button" @click="searchCity">
       <span>Search</span>
     </button>

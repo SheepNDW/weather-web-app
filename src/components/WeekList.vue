@@ -4,17 +4,7 @@
       <li
         v-for="(day, index) in cityInfo.weatherDatas.slice(0, 5)"
         :key="index"
-        @click="
-          activate(index, {
-            weather_state_abbr: day.weather_state_abbr,
-            weather_state_name: day.weather_state_name,
-            applicable_date: day.applicable_date,
-            the_temp: day.the_temp,
-            max_temp: day.max_temp,
-            min_temp: day.min_temp,
-            humidity: day.humidity,
-          })
-        "
+        @click="activate(index)"
         :class="{ active: active_el == index }"
       >
         <span
@@ -34,16 +24,24 @@
 <script>
 export default {
   name: "WeekList",
-  props: ["cityInfo"],
+  // props: ["cityInfo"],
+  props: {
+    cityInfo: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
   data() {
     return {
       active_el: 0,
     };
   },
   methods: {
-    activate: function (el, dataObj) {
+    activate: function (el) {
       this.active_el = el;
-      this.$emit("getCurrentActive", dataObj);
+      this.$emit("getCurrentActive", el);
     },
   },
 };

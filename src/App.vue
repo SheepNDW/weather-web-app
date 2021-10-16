@@ -53,60 +53,13 @@ export default {
     return {
       cityInfo: {
         city: "Taipei",
-        weatherDatas: [
-          // {
-          //   applicable_date: "2021-10-15",
-          //   the_temp: 30.630000000000003,
-          //   weather_state_abbr: "lc",
-          //   weather_state_name: "Light Cloud",
-          //   max_temp: 30.73,
-          //   min_temp: 24.835,
-          //   humidity: 66,
-          // },
-          // {
-          //   applicable_date: "2021-10-15",
-          //   the_temp: 30.630000000000003,
-          //   weather_state_abbr: "lc",
-          //   weather_state_name: "Light Cloud",
-          //   max_temp: 30.73,
-          //   min_temp: 24.835,
-          //   humidity: 66,
-          // },
-          // {
-          //   applicable_date: "2021-10-15",
-          //   the_temp: 30.630000000000003,
-          //   weather_state_abbr: "lc",
-          //   weather_state_name: "Light Cloud",
-          //   max_temp: 30.73,
-          //   min_temp: 24.835,
-          //   humidity: 66,
-          // },
-          // {
-          //   applicable_date: "2021-10-15",
-          //   the_temp: 30.630000000000003,
-          //   weather_state_abbr: "lc",
-          //   weather_state_name: "Light Cloud",
-          //   max_temp: 30.73,
-          //   min_temp: 24.835,
-          //   humidity: 66,
-          // },
-          // {
-          //   applicable_date: "2021-10-15",
-          //   the_temp: 30.630000000000003,
-          //   weather_state_abbr: "lc",
-          //   weather_state_name: "Light Cloud",
-          //   max_temp: 30.73,
-          //   min_temp: 24.835,
-          //   humidity: 66,
-          // },
-        ],
+        weatherDatas: [],
       },
     };
   },
   created() {
     axios.get(`http://localhost:8080/api/location/2306179/`).then(
       (response) => {
-        // console.log("請求成功了");
         this.cityInfo.weatherDatas = response.data.consolidated_weather;
       },
       (error) => {
@@ -116,7 +69,6 @@ export default {
   },
   mounted() {
     this.$bus.$on("updateCityData", (dataObj) => {
-      console.log("我是App 我收到citydata");
       this.cityInfo = { ...this.cityInfo, ...dataObj };
     });
   },

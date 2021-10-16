@@ -1,55 +1,19 @@
 <template>
   <div class="week-container">
     <ul class="week-list">
-      <li class="active">
-        <!-- icon -->
-        <span><img :src="imgUrl" alt="" /></span>
+      <li
+        v-for="(day, index) in cityInfo.weatherDatas.slice(0, 5)"
+        :key="index"
+      >
+        <span
+          ><img
+            :src="`https://www.metaweather.com/static/img/weather/${day.weather_state_abbr}.svg`"
+            alt=""
+        /></span>
         <span class="day-name">
-          {{ cityInfo.weatherDatas[0].applicable_date.slice(5, 10) }}
+          {{ day.applicable_date.slice(5, 10) }}
         </span>
-        <span class="day-temp">
-          {{ Math.round(cityInfo.weatherDatas[0].the_temp) }}°C
-        </span>
-      </li>
-      <li>
-        <!-- icon -->
-        <span><img :src="imgUrl2" alt="" /></span>
-        <span class="day-name">
-          {{ cityInfo.weatherDatas[1].applicable_date.slice(5, 10) }}
-        </span>
-        <span class="day-temp">
-          {{ Math.round(cityInfo.weatherDatas[1].the_temp) }}°C
-        </span>
-      </li>
-      <li>
-        <!-- icon -->
-        <span><img :src="imgUrl3" alt="" /></span>
-        <span class="day-name">
-          {{ cityInfo.weatherDatas[2].applicable_date.slice(5, 10) }}
-        </span>
-        <span class="day-temp">
-          {{ Math.round(cityInfo.weatherDatas[2].the_temp) }}°C
-        </span>
-      </li>
-      <li>
-        <!-- icon -->
-        <span><img :src="imgUrl4" alt="" /></span>
-        <span class="day-name">
-          {{ cityInfo.weatherDatas[3].applicable_date.slice(5, 10) }}
-        </span>
-        <span class="day-temp">
-          {{ Math.round(cityInfo.weatherDatas[3].the_temp) }}°C
-        </span>
-      </li>
-      <li>
-        <!-- icon -->
-        <span><img :src="imgUrl5" alt="" /></span>
-        <span class="day-name">
-          {{ cityInfo.weatherDatas[4].applicable_date.slice(5, 10) }}
-        </span>
-        <span class="day-temp">
-          {{ Math.round(cityInfo.weatherDatas[4].the_temp) }}°C
-        </span>
+        <span class="day-temp"> {{ Math.round(day.the_temp) }}°C </span>
       </li>
     </ul>
   </div>
@@ -59,23 +23,6 @@
 export default {
   name: "WeekList",
   props: ["cityInfo"],
-  computed: {
-    imgUrl() {
-      return `https://www.metaweather.com/static/img/weather/${this.cityInfo.weatherDatas[0].weather_state_abbr}.svg`;
-    },
-    imgUrl2() {
-      return `https://www.metaweather.com/static/img/weather/${this.cityInfo.weatherDatas[1].weather_state_abbr}.svg`;
-    },
-    imgUrl3() {
-      return `https://www.metaweather.com/static/img/weather/${this.cityInfo.weatherDatas[2].weather_state_abbr}.svg`;
-    },
-    imgUrl4() {
-      return `https://www.metaweather.com/static/img/weather/${this.cityInfo.weatherDatas[3].weather_state_abbr}.svg`;
-    },
-    imgUrl5() {
-      return `https://www.metaweather.com/static/img/weather/${this.cityInfo.weatherDatas[4].weather_state_abbr}.svg`;
-    },
-  },
 };
 </script>
 

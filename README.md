@@ -1,5 +1,7 @@
 # 天氣預報 App
 
+![image](https://raw.githubusercontent.com/SheepNDW/weather-web-app/master/src/assets/weatherAppDemo.gif)
+
 ## 概要
 
 1. 使用 weather data source open API: <a href="https://www.metaweather.com/api/">MetaWeather</a> 結合 Vue.js 框架開發一個天氣預報 Web App

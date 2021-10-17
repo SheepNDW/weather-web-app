@@ -7,7 +7,8 @@
         {{ cityInfo.weatherDatas[currentSelect].applicable_date }}
       </span>
       <span id="location">
-        {{ cityInfo.city }}
+        <i class="pin icon"></i>
+        <p>{{ cityInfo.city }}</p>
       </span>
     </div>
 
@@ -24,6 +25,10 @@
       <div class="weather-desc">
         {{ cityInfo.weatherDatas[currentSelect].weather_state_name }}
       </div>
+    </div>
+    <div class="humidity-chart">
+      <div class="pie-chart" :style="pieStyle"></div>
+      <span>濕度: {{ cityInfo.weatherDatas[currentSelect].humidity }}%</span>
     </div>
   </div>
 </template>
@@ -42,6 +47,17 @@ export default {
     currentSelect: {
       type: Number,
       default: 0,
+    },
+  },
+  computed: {
+    pieStyle() {
+      return {
+        background: `conic-gradient(#3b7df4 0 ${
+          this.cityInfo.weatherDatas[this.currentSelect].humidity
+        }%, rgba(255,255,255,0.8) 0 ${
+          100 - this.cityInfo.weatherDatas[this.currentSelect].humidity
+        }%)`,
+      };
     },
   },
 };
@@ -80,8 +96,37 @@ $colorGradient: linear-gradient(135deg, #72edf1 10%, #5151e6 100%);
   }
 
   #location {
-    display: block;
+    display: flex;
+    position: relative;
     margin-top: 4px;
+
+    p {
+      margin-left: 4px;
+      font-size: 1.2em;
+    }
+
+    .pin.icon {
+      color: #fff;
+      // position: absolute;
+      margin-left: 4px;
+      margin-top: 2px;
+      width: 12px;
+      height: 12px;
+      border: solid 1px currentColor;
+      border-radius: 7px 7px 7px 0;
+      transform: rotate(-45deg);
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        width: 4px;
+        height: 4px;
+        border: solid 1px currentColor;
+        border-radius: 3px;
+      }
+    }
   }
 }
 
@@ -101,5 +146,51 @@ $colorGradient: linear-gradient(135deg, #72edf1 10%, #5151e6 100%);
     font-size: 20px;
   }
 }
+
+.humidity-chart {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  right: 5px;
+  bottom: 16px;
+  width: 100px;
+  height: 100px;
+  span {
+    opacity: 0.8;
+  }
+
+  .pie-chart {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+    animation: show 1s ease-in-out;
+    // border: 1px solid #fff;
+    // background: conic-gradient(#3b7df4 0 75%, #fff 0 25%);
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b7df4 10%, #5151e6 100%);
+    }
+  }
+}
 //--- left part end ---
+@keyframes show {
+  0% {
+    transform: scale(0) rotate(720deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
 </style>

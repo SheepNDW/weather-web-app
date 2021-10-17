@@ -11,6 +11,20 @@
             <!-- MaxT -->
             <div class="MaxT clear">
               <span class="title">最高溫</span>
+              <div class="valuebar">
+                <div
+                  class="bar-value"
+                  :style="
+                    'width: ' +
+                    100 *
+                      (Math.round(
+                        cityInfo.weatherDatas[currentSelect].max_temp
+                      ) /
+                        50) +
+                    '%'
+                  "
+                ></div>
+              </div>
               <span class="value"
                 >{{
                   Math.round(cityInfo.weatherDatas[currentSelect].max_temp)
@@ -20,6 +34,20 @@
             <!-- MinT -->
             <div class="MinT clear">
               <span class="title">最低溫</span>
+              <div class="valuebar">
+                <div
+                  class="bar-value"
+                  :style="
+                    'width: ' +
+                    100 *
+                      (Math.round(
+                        cityInfo.weatherDatas[currentSelect].min_temp
+                      ) /
+                        50) +
+                    '%'
+                  "
+                ></div>
+              </div>
               <span class="value"
                 >{{
                   Math.round(cityInfo.weatherDatas[currentSelect].min_temp)
@@ -27,12 +55,12 @@
               >
             </div>
             <!-- humidity -->
-            <div class="humidity clear">
+            <!-- <div class="humidity clear">
               <span class="title">濕度</span>
               <span class="value"
                 >{{ cityInfo.weatherDatas[currentSelect].humidity }}%</span
               >
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -124,7 +152,8 @@ $colorGradient: linear-gradient(135deg, #72edf1 10%, #5151e6 100%);
 body {
   width: 100%;
   height: 100vh;
-  background-color: $colorBackground;
+  // background-color: $colorBackground;
+  background: url(./assets/天空.png);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -261,7 +290,7 @@ body {
 }
 
 .today-info {
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 5px 15px;
   margin: 0 25px 25px 25px;
   box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
@@ -274,6 +303,26 @@ body {
   }
   .value {
     float: right;
+  }
+  .MaxT,
+  .MinT,
+  .humidity {
+    position: relative;
+  }
+  .valuebar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 70px;
+    background-color: #fff;
+    width: 200px;
+    height: 4px;
+    .bar-value {
+      width: 100px;
+      height: 100%;
+      background-color: rgb(59, 125, 224);
+      transition: 0.3s;
+    }
   }
 }
 

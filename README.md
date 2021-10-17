@@ -14,7 +14,7 @@
 
 1. 建立 Vue Cli 開發環境 (Vue2)
 2. 使用 SCSS 進行樣式開發
-3. 使用 axios 來發送 ajax 請求
+3. 使用 axios 來呼叫第三方 api
 4. 使用到的 Vue 技術：
    1. 配置代理 server 來解決跨域問題 (devServer.proxy)
    2. 利用 props ､ event bus 以及自定義事件$emit 進行組件間的數據傳遞

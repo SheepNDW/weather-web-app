@@ -9,6 +9,7 @@
    1. 預設為台北的天氣
    2. 顯示出最近 5 天的天氣概況：天氣、氣溫、濕度...等
    3. 配合使用者輸入的城市名動態更新天氣資料 (城市僅限 MetaWeather 支援之城市)
+3. 更新 <a href="https://github.com/SheepNDW/weather-app-vuex">Vuex 版本</a>
 
 ## 使用技術&方法
 
